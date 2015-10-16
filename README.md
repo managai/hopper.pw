@@ -58,3 +58,34 @@ From time to time execute this again to install the newest dependencies.
 For production environments I prefer gunicorn with nginx and postgresql as DB.  
 For the moment please use google for instructions how to set it up.
 
+## TIPS
+
+###
+If requirements install fails due to 
+```
+_pylibmcmodule.h:42:36: fatal error: libmemcached/memcached.h: No such file or directory
+```
+install libmemcached-dev
+```
+sudo apt-get install libmemcached-dev
+```
+
+###
+python manage.py runserver
+
+ImportError: Could not import settings 'hopperpw.settings.dev' (Is it on sys.path? Is there an import error in the settings file?): No module named 'kombu'
+
+pip install kombu
+
+ImportError: Could not import settings 'hopperpw.settings.dev' (Is it on sys.path? Is there an import error in the settings file?): No module named 'billiard'
+
+pip install billiard
+
+###
+. env/py2/bin/activate
+. env/py3/bin/activate
+
+###
+python manage.py check
+python manage.py migrate
+python manage.py runserver --settings=hopperpw.settings.local_dev
