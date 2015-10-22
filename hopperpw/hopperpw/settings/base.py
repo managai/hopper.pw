@@ -6,10 +6,12 @@ Common settings and globals for all environments.
 Do not use this setting directly! Instead import these and override DATABASE settings.
 """
 
+# ######### IMPORT CONFIGURATION
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
 import django.conf.global_settings as DEFAULT_SETTINGS
+# ######### END IMPORT CONFIGURATION
 
 # ######### PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
@@ -252,7 +254,7 @@ LOGGING = {
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # ######### END WSGI CONFIGURATION
 
-
+# ######### MISCELLANEA CONFIGURATION
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -263,6 +265,7 @@ LOGIN_REDIRECT_URL = 'overview'
 ENABLE_TRACKING = False
 
 ENABLE_ADS = False
+# ######### END MISCELLANEA CONFIGURATION
 
 # ######### DJANGO ALLAUTH
 ACCOUNT_EMAIL_REQUIRED = True
