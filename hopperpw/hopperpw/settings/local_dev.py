@@ -1,8 +1,21 @@
 # coding=utf-8
 
+"""
+Common settings and globals for all environments.
+
+Do not use this setting directly! Instead import these and override DATABASE settings.
+"""
+
+# ######### IMPORT CONFIGURATION
 from __future__ import absolute_import
 
 from .base import *
+# ######### END IMPORT CONFIGURATION
+
+
+# ######### PATH CONFIGURATION
+# ######### END PATH CONFIGURATION
+
 
 # ######### DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -26,13 +39,14 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
-
 # ######### END DEBUG CONFIGURATION
+
 
 # ######### EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # ######### END EMAIL CONFIGURATION
+
 
 # ######### CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
@@ -43,14 +57,88 @@ CACHES = {
 }
 # ######### END CACHE CONFIGURATION
 
+
+# ######### MANAGER CONFIGURATION
+# ######### END MANAGER CONFIGURATION
+
+
+# ######### DATABASE CONFIGURATION
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'hopperpw.sqlite',
     }
 }
+# ######### END DATABASE CONFIGURATION
 
+
+# ######### GENERAL CONFIGURATION
+# ######### END GENERAL CONFIGURATION
+
+
+# ######### MEDIA CONFIGURATION
+# ######### END MEDIA CONFIGURATION
+
+
+# ######### STATIC FILE CONFIGURATION
+# ######### END STATIC FILE CONFIGURATION
+
+
+# ######### SECRET CONFIGURATION
 SECRET_KEY = 'secretkey'
+
+SESSION_COOKIE_SECURE = False
+# ######### END SECRET CONFIGURATION
+
+
+# ######### SITE CONFIGURATION
+ALLOWED_HOSTS = []
+# ######### END SITE CONFIGURATION
+
+
+# ######### FIXTURE CONFIGURATION
+# ######### END FIXTURE CONFIGURATION
+
+
+# ######### TEMPLATE CONFIGURATION
+# ######### END TEMPLATE CONFIGURATION
+
+
+# ######### MIDDLEWARE CONFIGURATION
+# ######### END MIDDLEWARE CONFIGURATION
+
+
+# ######### URL CONFIGURATION
+# ######### END URL CONFIGURATION
+
+
+# ######### APP CONFIGURATION
+# ######### END APP CONFIGURATION
+
+
+# ######### LOGGING CONFIGURATION
+# ######### END LOGGING CONFIGURATION
+
+
+# ######### WSGI CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
+WSGI_APPLICATION = None
+# ######### END WSGI CONFIGURATION
+
+
+# ######### MISCELLANEA CONFIGURATION
+SECURE_PROXY_SSL_HEADER = None
+ENABLE_TRACKING = True
+ENABLE_ADS = True
+# ######### END MISCELLANEA CONFIGURATION
+
+
+# ######### DJANGO ALLAUTH
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+# ######### END DJANGO ALLAUTH
+
+# ######### CELERY CONFIGURATION
+# ######### END CELERY CONFIGURATION
 
 # ######### TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup

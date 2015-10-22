@@ -87,5 +87,5 @@ pip install billiard
 
 ###
 python manage.py check
-python manage.py migrate
+python manage.py migrate --settings=hopperpw.settings.local_dev
 python manage.py runserver --settings=hopperpw.settings.local_dev
