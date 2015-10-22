@@ -71,21 +71,37 @@ sudo apt-get install libmemcached-dev
 ```
 
 ###
+```
 python manage.py runserver
+```
 
+```
 ImportError: Could not import settings 'hopperpw.settings.dev' (Is it on sys.path? Is there an import error in the settings file?): No module named 'kombu'
+```
 
+```
 pip install kombu
+```
 
+```
 ImportError: Could not import settings 'hopperpw.settings.dev' (Is it on sys.path? Is there an import error in the settings file?): No module named 'billiard'
+```
 
+```
 pip install billiard
+```
 
 ###
+
+```
 . env/py2/bin/activate
 . env/py3/bin/activate
+```
 
 ###
+
+```
 python manage.py check
 python manage.py migrate --settings=hopperpw.settings.local_dev
 python manage.py runserver --settings=hopperpw.settings.local_dev
+```
