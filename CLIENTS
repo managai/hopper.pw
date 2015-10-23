@@ -1,0 +1,11 @@
+https://github.com/kuboosoft/hopper-client/blob/master/hopper
+https://github.com/cptaffe/dyndns_update/blob/master/dyndns_update.py
+
+########
+
+hostname=managai.hopper.pw
+secret=2TEGaUVEfy
+curl -k http://$hostname:$secret@ipv4.www.hopper.pw/nic/update -v 
+
+
+
