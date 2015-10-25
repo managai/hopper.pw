@@ -1,0 +1,9 @@
+# register a domain
+
+example.com
+
+# set DNS
+
+www 	A 	31.14.136.50
+
+# configure SITE CONFIGURATION section in setting file
