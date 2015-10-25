@@ -20,3 +20,6 @@ pytz
 redis
 sphinx
 raven
+kombu
+billiard
+sqlparse
