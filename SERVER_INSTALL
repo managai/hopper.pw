@@ -1,0 +1,72 @@
+# as root
+
+sudo apt-get update
+sudo apt-get upgrade
+
+# install virtualenv
+
+sudo apt-get install python-virtualenv
+
+# install pip3
+
+sudo apt-get install python3-pip
+
+# install git
+
+sudo apt-get install git
+
+# install postgresql
+
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+
+# install python-dev
+
+sudo apt-get install python-dev python3-dev
+
+# install libmemcached-dev
+
+sudo apt-get install libmemcached-dev
+
+# create new user
+
+sudo groupadd --system webapps
+sudo useradd --system --gid webapps --shell /bin/bash --home /webapps/hopper1 hopper1
+
+
+
+# create folder for webapp
+
+sudo mkdir -p /webapps/hopper1/
+sudo chown hopper1 /webapps/hopper1/
+
+# clone repo
+
+sudo su - hopper1
+cd /webapps/hopper1
+git clone https://github.com/managai/hopper.pw.git
+cd hopper.pw
+
+
+# create virtualen for webapp user
+
+mkdir env
+virtualenv env/py2
+
+# activate virtualenv
+
+. env/py2/bin/activate
+
+# install requirements
+
+pip install -r requirements.txt
+
+# create database
+
+python manage.py check --settings=hopperpw.settings.local_dev
+python manage.py migrate --settings=hopperpw.settings.local_dev
+
+# start server
+
+python manage.py runserver 0.0.0.0:8000 --settings=hopperpw.settings.local_dev
+
+
