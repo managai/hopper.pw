@@ -7,3 +7,20 @@ example.com
 www 	A 	31.14.136.50
 
 # configure SITE CONFIGURATION section in setting file
+
+# prepare PostgreSQL
+
+root@aries:~#  sudo su - postgres
+postgres@aries:~$ createuser --interactive -P
+Enter name of role to add: hopper1
+Enter password for new role: 
+Enter it again: 
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) n
+Shall the new role be allowed to create more new roles? (y/n) n
+
+postgres@aries:~$ createdb --owner hopper1 hopper1
+
+postgres@aries:~$ logout
+
+
