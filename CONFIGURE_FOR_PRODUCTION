@@ -23,4 +23,97 @@ postgres@aries:~$ createdb --owner hopper1 hopper1
 
 postgres@aries:~$ logout
 
+# gunicorn
 
+sudo su - hopper1
+cd /webapps/hopper1/hopper.pw/hopperpw
+. ../env/py2/bin/activate
+../env/py2/bin/gunicorn hopperpw.wsgi:application --bind www.bc2s.cc:8001 --workers 3
+../env/py2/bin/gunicorn hopperpw.wsgi:application --bind=unix:/webapps/hopper1/run/gunicorn.sock
+
+
+../env/py2/bin/python ../env/py2/bin/gunicorn hopperpw.wsgi:application --bind www.bc2s.cc:8001
+##gunicorn hopperpw.wsgi:application --bind www.bc2s.cc:8001
+
+
+
+(py2)hopper1@aries:~/hopper.pw/hopperpw$ cat gunicorn_start 
+#!/bin/bash
+
+NAME="hopper1"                                            # Name of the application
+DJANGODIR=/webapps/hopper1/hopper.pw                       # Django project directory
+SOCKFILE=/webapps/hopper1/run/gunicorn.sock               # we will communicte using this unix socket
+USER=hopper1                                              # the user to run as
+GROUP=webapps                                             # the group to run as
+NUM_WORKERS=3                                             # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE=hopperpw.settings.local_dev        # which settings file should Django use
+DJANGO_WSGI_MODULE=hopperpw.wsgi                          # WSGI module name
+
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+cd $DJANGODIR
+source ../env/py2/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+# Create the run directory if it doesn't exist
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec env/py2/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --bind=unix:$SOCKFILE \
+  --log-level=debug \
+  --log-file=-
+
+
+
+
+chmod u+x gunicorn_start
+
+
+. gunicorn_start
+
+
+# supervisor
+
+as root
+
+sudo apt-get install supervisor
+
+
+nano /etc/supervisor/conf.d/hopper1.conf
+
+root@aries:~# cat /etc/supervisor/conf.d/hopper1.conf
+[program:hopper1]
+command = /webapps/hopper1/hopper.pw/hopperpw/gunicorn_start                    ; Command to start app
+user = hopper1                                                                  ; User to run as
+stdout_logfile = /webapps/hopper1/logs/gunicorn_supervisor.log                  ; Where to write log messages
+redirect_stderr = true                                                          ; Save stderr in the same log
+environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8                                 ; Set UTF-8 as default encoding
+
+
+mkdir -p /webapps/hopper1/logs/
+touch /webapps/hopper1/logs/gunicorn_supervisor.log 
+
+root@aries:~# sudo supervisorctl reread
+hopper1: available
+root@aries:~# sudo supervisorctl update
+hopper1: added process group
+
+sudo supervisorctl status hopper1           
+
+
+
+
+
+######
+sudo su - hopper1
+
+../env/py2/bin/python ../env/py2/bin/gunicorn hopperpw.wsgi:application --bind www.bc2s.cc:8001
+######
