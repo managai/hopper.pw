@@ -26,6 +26,12 @@ class SameIpError(ValueError):
     """
 
 
+class DnsUpdateError(ValueError):
+    """
+    raised if DNS update return code is not NOERROR
+    """
+
+
 def get_rdtype(ipaddr):
     """
     Get the record type 'A' or 'AAAA' for this ipaddr.
@@ -203,5 +209,10 @@ def update_ns(fqdn, rdtype='A', ipaddr=None, origin=None, action='upd', ttl=60):
         upd.replace(name, ttl, rdtype, ipaddr)
     logger.debug("performing %s for name %s and origin %s with rdtype %s and ipaddr %s" % (
         action, name, origin, rdtype, ipaddr))
-    response = dns.query.tcp(upd, nameserver)
-    return response
+    try:
+        response = dns.query.tcp(upd, nameserver)
+        return response
+    except EOFError as e: 
+        logger.error("EOFError [%s] - zone: %s" % (str(e), origin, ))
+        #set_ns_availability(domain, False)
+        raise DnsUpdateError("EOFError")
