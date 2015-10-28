@@ -1,0 +1,13 @@
+# 1
+
+sudo su - hopper1
+
+cd /webapps/hopper1/hopper.pw
+
+. env/py2/bin/activate
+
+cd hopperpw
+
+python manage.py runserver 0.0.0.0:8000 --settings=hopperpw.settings.local_dev
+
+# 2
