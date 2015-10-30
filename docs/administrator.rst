@@ -46,4 +46,9 @@ Get an API key:
 
 visit page /admin/main/domain/add/
 
+* Domain: bc2s.cc
+* Nameserver ip: 66.33.206.206
+* Nameserver update key: <API_KEY>
+* Nameserver update algorithm: HMAC_SHA512
+
 
